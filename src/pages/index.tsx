@@ -1,9 +1,9 @@
-// import PeriodicTable from "@/components/feature/periodic-table";
+import PeriodicTable from "@/components/Feature/periodic-table";
 
 export default function Home() {
   return (
     <main>
-      {/* <PeriodicTable /> */}
+      <PeriodicTable />
       {/* <ElementDetail /> */}
     </main>
   );

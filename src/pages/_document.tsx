@@ -1,17 +1,14 @@
-import type { Metadata } from "next";
 import { Html, Head, Main, NextScript } from "next/document";
-
-export const metadata: Metadata = {
-  title: "元素周期表",
-};
 
 export default function Document() {
   return (
     <Html lang="ja">
-      <Head />
+      <Head>
+        <meta title="元素周期表"></meta>
+      </Head>
       <body>
         <Main />
-        <NextScript></NextScript>
+        <NextScript />
       </body>
     </Html>
   );

@@ -22,6 +22,8 @@
   },
   "dependencies": {
     "@hono/zod-validator": "^0.4.1",
+    "@radix-ui/react-slot": "^1.1.0",
+    "autoprefixer": "^10.4.20",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "hono": "^4.6.11",
@@ -30,6 +32,7 @@
     "next-themes": "^0.4.3",
     "react": "~18",
     "react-dom": "~18",
+    "swr": "^2.2.5",
     "tailwind-merge": "^2.5.5",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.23.8"
