@@ -1,4 +1,4 @@
-import PeriodicTable from "@/components/Feature/periodic-table";
+import PeriodicTable from '@/components/Feature/periodic-table';
 
 export default function Home() {
   return (

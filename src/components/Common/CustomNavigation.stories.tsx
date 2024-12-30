@@ -1,20 +1,19 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import Header from './index';
+import CustomNavigation from './CustomNavigation';
 
 const meta = {
-  title: 'ElementsApp/Header',
-  component: Header,
+  title: 'ElementsApp/CustomNavigation',
+  component: CustomNavigation,
   tags: ['autodocs'],
   parameters: {
     layout: 'fullscreen',
   },
-  args: {},
-} satisfies Meta<typeof Header>;
+} satisfies Meta<typeof CustomNavigation>;
 
 export default meta;
 
-type Story = StoryObj<Meta>;
+type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
   args: {},

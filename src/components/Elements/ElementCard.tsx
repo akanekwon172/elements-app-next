@@ -1,10 +1,10 @@
-import { Card, CardContent } from "../ui/Card";
+import { Card, CardContent } from '@/components/ui/card';
 
 interface Props {
   name: string;
   symbol: string;
   number: number;
-  atomicMass: number;
+  atomic_mass: number;
   // color: "s" | "p" | "d" | "f"; active?: boolean;
 }
 /* const bg = cn({
@@ -23,18 +23,18 @@ const ElementCard: React.FC<Props> = ({
   name,
   symbol,
   number,
-  atomicMass,
+  atomic_mass,
   // color = "p", active,
 }) => {
   return (
-    <Card tabIndex={0} role="button">
+    <Card role="button">
       <CardContent className="flex h-full flex-col justify-center px-0.5 py-2">
         <div className="mb-0.5 flex w-full flex-row justify-between">
           <span className="text-base">{symbol}</span>
           <span className="text-base">{number}</span>
         </div>
         <span className="text-xs">{name}</span>
-        <span className="text-xs">{atomicMass}</span>
+        <span className="text-xs">{atomic_mass}</span>
       </CardContent>
     </Card>
   );

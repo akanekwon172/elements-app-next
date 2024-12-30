@@ -1,22 +1,20 @@
 import type { Meta, StoryObj } from '@storybook/react';
 
-import Layout from './index';
+import ThemeToggler from './ThemeToggler';
 
 const meta = {
-  title: 'ElementsApp/Layout',
-  component: Layout,
+  title: 'ElementsApp/ThemeToggler',
+  component: ThemeToggler,
   tags: ['autodocs'],
   parameters: {
-    layout: 'fullscreen',
+    layout: 'centered',
   },
-} satisfies Meta<typeof Layout>;
+} satisfies Meta<typeof ThemeToggler>;
 
 export default meta;
 
 type Story = StoryObj<typeof meta>;
 
 export const Default: Story = {
-  args: {
-    children: 'Sample Content',
-  },
+  args: {},
 };
