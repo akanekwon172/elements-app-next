@@ -1,10 +1,10 @@
-import PeriodicTable from '@/components/Feature/PeriodicTable';
+import PeriodicTable from '@/components/PeriodicTable';
 
 export default function Home() {
   return (
-    <main>
+    <section className="py-8">
       <PeriodicTable />
       {/* <ElementDetail /> */}
-    </main>
+    </section>
   );
 }

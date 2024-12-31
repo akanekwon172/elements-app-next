@@ -7,7 +7,7 @@ import { ThemeProvider } from '@/context/ThemeProvider';
 
 export default function App({ Component, pageProps }: AppProps) {
   return (
-    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+    <ThemeProvider attribute="class" defaultTheme="system" enableSystem storageKey="theme">
       <Layout>
         <Component {...pageProps} />
       </Layout>
