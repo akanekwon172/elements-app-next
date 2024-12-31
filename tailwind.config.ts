@@ -21,20 +21,20 @@ export default {
         '18': 'repeat(18, minmax(0, 1fr))',
       },
       gridColumnStart: {
-        '13': '13',
         '14': '14',
         '15': '15',
         '16': '16',
         '17': '17',
         '18': '18',
+        '19': '19',
       },
-      gridColumnEnd: {
-        '13': '13',
+      gridrowStart: {
         '14': '14',
         '15': '15',
         '16': '16',
         '17': '17',
         '18': '18',
+        '19': '19',
       },
       gridColumn: {
         'span-13': 'span 13 / span 13',
@@ -43,6 +43,7 @@ export default {
         'span-16': 'span 16 / span 16',
         'span-17': 'span 17 / span 17',
         'span-18': 'span 18 / span 18',
+        'span-19': 'span 19 / span 19',
       },
 
       colors: {
