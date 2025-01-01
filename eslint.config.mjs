@@ -1,100 +1,159 @@
-import { FlatCompat } from "@eslint/eslintrc";
-import pluginJs from "@eslint/js";
-import pluginImport from "eslint-plugin-import";
-import tailwind from "eslint-plugin-tailwindcss";
-import globals from "globals";
-import tseslint from "typescript-eslint";
+import js from '@eslint/js';
+import pluginNext from '@next/eslint-plugin-next';
+import pluginStylistic from '@stylistic/eslint-plugin';
+import tseslintParser from '@typescript-eslint/parser';
+import eslintConfigPrettier from 'eslint-config-prettier';
+import pluginReact from 'eslint-plugin-react';
+import pluginHooks from 'eslint-plugin-react-hooks';
+import pluginImport from 'eslint-plugin-simple-import-sort';
+import pluginTailwind from 'eslint-plugin-tailwindcss';
+import tseslint from 'typescript-eslint';
 
-const compat = new FlatCompat({
-  baseDirectory: import.meta.dirname,
-});
-
-/** @type {import('eslint').Linter.Config[]} */
-const config = [
-  { files: ["**/*.{mjs,ts,tsx}"] },
-  { ignores: [".github/", "node_modules/", ".next/"] },
+export default [
   {
-    languageOptions: { globals: globals.browser },
-    settings: {
-      react: {
-        version: "detect",
+    files: ['*.js', '*.jsx', '*.ts', '*.tsx'],
+  },
+  {
+    ignores: [
+      '**/.prettierrc.json',
+      '**/tsconfig.json',
+      '**/eslint.config.mjs',
+      '**/next.config.mjs',
+      '**/postcss.config.mjs',
+      '**/next-env.d.ts',
+      '**/tailwind.config.ts',
+      '**/bin/',
+      '**/build/',
+      '**/obj/',
+      '**/out/',
+      '**/.next/',
+    ],
+  },
+  {
+    name: 'eslint/recommended',
+    rules: {
+      ...js.configs.recommended.rules,
+
+      'no-useless-rename': 'error',
+
+      // Naming Conventions
+      'no-underscore-dangle': ['error', { allow: ['_id', '__dirname'] }],
+    },
+  },
+  {
+    name: 'eslint/stylistic',
+    plugins: {
+      '@stylistic': pluginStylistic,
+    },
+    rules: {
+      ...pluginStylistic.configs['recommended-flat'].rules,
+      // Custom Rules (Not covered by plugins)
+
+      '@stylistic/semi': 'off',
+      '@stylistic/spaced-comment': [
+        'error',
+        'always',
+        { exceptions: ['-', '+'] },
+      ],
+      // Whitespace and Punctuation (Style Rules)
+      '@stylistic/arrow-parens': 'off',
+      '@stylistic/indent': ['off', 2],
+      '@stylistic/operator-linebreak': ['error', 'before'],
+      '@stylistic/member-delimiter-style': ['error'],
+      '@stylistic/no-trailing-spaces': 'error',
+      '@stylistic/no-multiple-empty-lines': ['error', { max: 1, maxEOF: 1 }],
+      '@stylistic/space-before-function-paren': [
+        'error',
+        { asyncArrow: 'always', named: 'never' },
+      ],
+      '@stylistic/space-in-parens': ['error', 'never'],
+      '@stylistic/array-bracket-spacing': ['error', 'never'],
+      '@stylistic/object-curly-spacing': ['error', 'always'],
+      '@stylistic/func-call-spacing': ['error', 'never'],
+      '@stylistic/computed-property-spacing': ['error', 'never'],
+      '@stylistic/jsx-closing-tag-location': 'error',
+    },
+  },
+  ...tseslint.configs.recommendedTypeChecked,
+  {
+    name: 'typescript',
+    languageOptions: {
+      parser: tseslintParser,
+      parserOptions: {
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname,
       },
     },
     plugins: {
-      import: pluginImport,
-      tailwindcss: tailwind,
+      ['@typescript-eslint']: tseslint.plugin,
+    },
+    rules: {
+      ...tseslint.configs.recommendedTypeChecked.rules,
+      '@typescript-eslint/no-unused-vars': ['error'],
+      '@typescript-eslint/no-unsafe-assignment': ['off'],
+      '@typescript-eslint/require-await': ['off'],
     },
   },
-  pluginJs.configs.recommended,
-  ...tseslint.configs.recommended,
-  ...tailwind.configs["flat/recommended"],
-  ...compat.extends("next/core-web-vitals", "next/typescript"),
   {
+    name: 'react/jsx-runtime',
+    plugins: {
+      react: pluginReact,
+    },
     rules: {
-      // Custom Rules (Not covered by plugins)
-      "spaced-comment": ["error", "always", { exceptions: ["-", "+"] }],
-      "key-spacing": ["error", { beforeColon: false, afterColon: true }],
-      "no-useless-rename": "error",
-
-      // Import/Export Rules
-      "import/no-mutable-exports": "error",
-      "import/order": [
-        "error",
+      ...pluginReact.configs['jsx-runtime'].rules,
+      'react/self-closing-comp': ['error', { component: true, html: false }],
+      'react/jsx-curly-brace-presence': 'error',
+    },
+    settings: {
+      react: {
+        version: 'detect',
+      },
+    },
+  },
+  {
+    name: 'react-hooks/recommended',
+    plugins: {
+      'react-hooks': pluginHooks,
+    },
+    rules: pluginHooks.configs.recommended.rules,
+  },
+  {
+    name: 'next/core-web-vitals',
+    plugins: {
+      '@next/next': pluginNext,
+    },
+    rules: {
+      ...pluginNext.configs.recommended.rules,
+      ...pluginNext.configs['core-web-vitals'].rules,
+    },
+  },
+  ...pluginTailwind.configs['flat/recommended'],
+  {
+    name: 'project-custom',
+    plugins: {
+      's-import': pluginImport,
+      tailwindcss: pluginTailwind,
+    },
+    rules: {
+      's-import/imports': [
+        'error',
         {
           groups: [
-            "builtin",
-            "external",
-            "internal",
-            "parent",
-            "sibling",
-            "index",
+            ['^.+\\.s?css$'],
+
+            ['^react'],
+            ['^hono'],
+            ['^@?\\w'],
+            ['^'],
+            ['@/(.*)'],
+            ['^[./]'],
           ],
-          pathGroups: [
-            {
-              pattern: "react",
-              group: "external",
-              position: "before",
-            },
-            {
-              pattern: "{next,next/**}",
-              group: "external",
-              position: "before",
-            },
-          ],
-          pathGroupsExcludedImportTypes: [],
-          "newlines-between": "always",
-          alphabetize: {
-            order: "asc",
-            caseInsensitive: true,
-          },
         },
       ],
-      "import/newline-after-import": "error",
+      's-import/exports': 'error',
 
-      // Whitespace and Punctuation (Style Rules)
-      "no-trailing-spaces": "error",
-      "no-multiple-empty-lines": ["error", { max: 1, maxEOF: 1 }],
-      "space-before-function-paren": ["error", "never"],
-      "space-in-parens": ["error", "never"],
-      "array-bracket-spacing": ["error", "never"],
-      "object-curly-spacing": ["error", "always"],
-      "func-call-spacing": ["error", "never"],
-      "computed-property-spacing": ["error", "never"],
-
-      // Naming Conventions
-      "no-underscore-dangle": ["error", { allow: ["_id", "__dirname"] }],
-
-      // Unused Variables
-      "no-unused-vars": "off",
-      "@typescript-eslint/no-unused-vars": ["warn"],
-      "@typescript-eslint/no-unused-expressions": [
-        "error",
-        { enforceForJSX: true },
-      ],
-
-      "tailwindcss/classnames-order": "error",
+      'tailwindcss/classnames-order': 'error',
     },
   },
+  eslintConfigPrettier,
 ];
-
-export default config;

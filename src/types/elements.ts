@@ -1,0 +1,27 @@
+export type ElementDetailsTypes = {
+  name: string;
+  appearance: string;
+  atomic_mass: number;
+  boil: number;
+  category: string;
+  density: number;
+  melt: number;
+  molar_heat: number;
+  number: number;
+  period: number;
+  group: number;
+  phase: string;
+  source: string;
+  summary: string;
+  symbol: string;
+  xpos: number;
+  ypos: number;
+  wxpos: number;
+  wypos: number;
+  shells: [];
+  electron_configuration: string;
+  electron_affinity: number;
+  electronegativity_pauling: number;
+  ionization_energies: [];
+  block: string;
+};
