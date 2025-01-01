@@ -4,7 +4,7 @@ import { Hono } from 'hono';
 import { zValidator } from '@hono/zod-validator';
 import { z } from 'zod';
 
-import data from '@/data/elements.json';
+import data from '@/data/elements-en.json';
 
 export const elementRouter = new Hono()
   .get('/', async (c) => {
